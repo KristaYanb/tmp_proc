@@ -13,34 +13,110 @@ namespace simple_matrix
 		matr* sp;
 		int k;
 		ifst >> k;
-		switch (k) {
+
+		int k2;
+		ifst >> k2;
+
+		switch (k) 
+		{
 		case 1:
-			sp = new matr;
-			sp->k = matr::key::SQUARE;
-			In(sp->s, ifst);
-			return sp;
+			switch (k2)
+			{
+			case 0:
+				sp = new matr;
+				sp->k = matr::key::SQUARE;
+				sp->k2 = matr::key2::STROKI;
+				In(sp->s, ifst);
+				return sp;
+			case 1:
+				sp = new matr;
+				sp->k = matr::key::SQUARE;
+				sp->k2 = matr::key2::STOLB;
+				In(sp->s, ifst);
+				return sp;
+			case 2:
+				sp = new matr;
+				sp->k = matr::key::SQUARE;
+				sp->k2 = matr::key2::ODN_MASS;
+				In(sp->s, ifst);
+				return sp;
+			default:
+				return 0;
+			}
 		case 2:
-			sp = new matr;
-			sp->k = matr::key::DIAG;
-			In(sp->d, ifst);
-			return sp;
+			switch (k2)
+			{
+			case 0:
+				sp = new matr;
+				sp->k = matr::key::DIAG;
+				sp->k2 = matr::key2::STROKI;
+				In(sp->d, ifst);
+				return sp;
+			case 1:
+				sp = new matr;
+				sp->k = matr::key::DIAG;
+				sp->k2 = matr::key2::STOLB;
+				In(sp->d, ifst);
+				return sp;
+			case 2:
+				sp = new matr;
+				sp->k = matr::key::DIAG;
+				sp->k2 = matr::key2::ODN_MASS;
+				In(sp->d, ifst);
+				return sp;
+			default:
+				return 0;
+			}
 		default:
 			return 0;
 		}
 	}
 
 	// Сигнатуры требуемых внешних функций
-	void Out(square& r, ofstream& ofst);
-	void Out(diag& t, ofstream& ofst);
+	void Out1(square& r, ofstream& ofst);
+	void Out2(square& r, ofstream& ofst);
+	void Out3(square& r, ofstream& ofst);
+	void Out1(diag& t, ofstream& ofst);
+	void Out2(diag& t, ofstream& ofst);
+	void Out3(diag& t, ofstream& ofst);
 
 	void Out(matr& s, ofstream& ofst) // Вывод параметров текущей матрицы в поток
 	{
 		switch (s.k) {
 		case matr::key::SQUARE:
-			Out(s.s, ofst);
+			switch (s.k2)
+			{
+			case matr::key2::STROKI:
+				ofst << "STROKI " << s.k2 << endl;
+				Out1(s.s, ofst);
+				break;
+			case matr::key2::STOLB:
+				ofst << "STOLB " << s.k2 << endl;
+				Out2(s.s,  ofst);
+				break;
+			case matr::key2::ODN_MASS:
+				ofst << "ODN_MASS " << s.k2 << endl;
+				Out3(s.s, ofst);
+				break;
+			}
 			break;
+		
 		case matr::key::DIAG:
-			Out(s.d, ofst);
+			switch (s.k2)
+			{
+			case matr::key2::STROKI:
+				ofst << "STROKI " << s.k2 << endl;
+				Out1(s.d, ofst);
+				break;
+			case matr::key2::STOLB:
+				ofst << "STOLB " << s.k2 << endl;
+				Out2(s.d, ofst);
+				break;
+			case matr::key2::ODN_MASS:
+				ofst << "ODN_MASS " << s.k2 << endl;
+				Out3(s.d, ofst);
+				break;
+			}
 			break;
 		default:
 			ofst << "Incorrect matrix!" << endl;
