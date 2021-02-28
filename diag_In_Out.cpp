@@ -25,4 +25,12 @@ namespace simple_matrix
 					ofst << endl;
 			}
 	}
+
+	int Summa(diag& t)
+	{ 
+		int summa = 0;
+		for (int i = 1; i <= t.size; i++)
+			summa = summa + t.mas_diag[i];
+		return summa;
+	}
 } // end simple_matrix namespace

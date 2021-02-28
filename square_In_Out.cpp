@@ -23,4 +23,13 @@ namespace simple_matrix
 					ofst << endl;
 			}
 	}
+
+	int Summa(square& r)
+	{
+		int summa = 0;
+		for (int i = 1; i <= r.size; i++)
+			for (int j = 1; j <= r.size; j++)
+				summa = summa + r.mas_square[i][j];
+		return summa;
+	}
 } // end simple_matrix namespace
