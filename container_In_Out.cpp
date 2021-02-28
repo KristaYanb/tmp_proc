@@ -29,6 +29,28 @@ namespace simple_matrix
 
 	void Out(matr& s, ofstream& ofst); // Сигнатуры требуемых внешних функций
 
+	void OutSquare(container& c, ofstream& ofst) 
+	{ 
+		ofst << "Container contains " << c.size
+			<< " elements." << endl;
+
+		ofst << "Only square." << endl; 
+
+		node* curNode = c.head;
+		int i = 0;
+
+		while (curNode != NULL)
+		{
+			ofst << i << ": ";
+
+			if (curNode->m->k == matr::SQUARE)
+				Out(*curNode->m, ofst);
+			else ofst << endl;
+			curNode = curNode->next;
+			i++;
+		}
+	}
+	
 	void Out(container& c, ofstream& ofst) // Вывод содержимого контейнера в файл
 	{
 		ofst << "Container contains " << c.size
