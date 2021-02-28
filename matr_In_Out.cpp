@@ -8,6 +8,9 @@ namespace simple_matrix
 	void In(square& r, ifstream& ist);
 	void In(diag& t, ifstream& ist);
 
+	int Summa(square& r);
+	int Summa(diag& t);
+
 	matr* In(ifstream& ifst) // Ввод параметров обобщенной матрицы из файла
 	{
 		matr* sp;
@@ -29,9 +32,23 @@ namespace simple_matrix
 		}
 	}
 
+	int Summa(matr& s)
+	{
+		switch (s.k) 
+		{
+		case matr::key::SQUARE:
+			return Summa(s.s);
+		case matr::key::DIAG:
+			return Summa(s.d);
+		default: 
+			return -1;
+		}
+	}
+
 	// Сигнатуры требуемых внешних функций
 	void Out(square& r, ofstream& ofst);
 	void Out(diag& t, ofstream& ofst);
+	
 
 	void Out(matr& s, ofstream& ofst) // Вывод параметров текущей матрицы в поток
 	{
