@@ -28,6 +28,7 @@ namespace simple_matrix
 	}
 
 	void Out(matr& s, ofstream& ofst); // Сигнатуры требуемых внешних функций
+	int Summa(matr& s);
 
 	void Out(container& c, ofstream& ofst) // Вывод содержимого контейнера в файл
 	{
@@ -40,10 +41,9 @@ namespace simple_matrix
 		while (curNode != NULL)
 		{
 			ofst << i << ": ";
-			
 			Out(*curNode->m, ofst);
+			ofst << "Summa = " << Summa(*curNode->m) << endl;
 			curNode = curNode->next;
-
 			i++;
 		}
 	}
