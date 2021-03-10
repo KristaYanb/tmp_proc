@@ -11,6 +11,7 @@ namespace simple_matrix
 	void In(container& c, ifstream& ifst);
 	//void sort(int size, struct node* head);
 	void sort(container& c);
+	void OutSquare(container& c, ofstream& ofst);
 	void Out(container& c, ofstream& ofst);
 }
 using namespace simple_matrix;
@@ -37,11 +38,12 @@ int main(int argc, char* argv[])
 	sort(c);
 	ofst << "Sorted container. " << endl;
 
-	Out(c, ofst);
+	OutSquare(c, ofst);
+
 	Clear(c);
 	ofst << "Empty container. " << endl;
 
-	Out(c, ofst);
+	OutSquare(c, ofst);
 	cout << "Stop" << endl;
 
 	return 0;
