@@ -28,7 +28,36 @@ namespace simple_matrix
 	}
 
 	void Out(matr& s, ofstream& ofst); // Сигнатуры требуемых внешних функций
+
 	int Summa(matr& s);
+
+	bool Compare(matr* first, matr* second)
+	{
+		return Summa(*first) < Summa(*second);
+	}
+
+	void sort(container& c)
+	{
+		node* left = c.head;
+		node* right = c.head->next;
+
+		node* temp = new node;
+		for (int i = 0; i < c.size - 1; i++)
+		{
+			for (int j = i + 1; j < c.size; j++)
+			{
+				if (Compare(left->m, right->m))
+				{
+					temp->m = left->m;
+					left->m = right->m;
+					right->m = temp->m;
+				}
+				right = right->next;
+			}
+			left = left->next;
+			right = left->next;
+		}
+	}
 
 	void Out(container& c, ofstream& ofst) // Вывод содержимого контейнера в файл
 	{

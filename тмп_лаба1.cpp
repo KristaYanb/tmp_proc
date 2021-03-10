@@ -3,17 +3,19 @@
 #include "container_atd.h"
 using namespace std;
 
-namespace simple_matrix 
+namespace simple_matrix
 {
 	// Сигнатуры требуемых внешних функций
 	void Init(container& c);
 	void Clear(container& c);
 	void In(container& c, ifstream& ifst);
+	//void sort(int size, struct node* head);
+	void sort(container& c);
 	void Out(container& c, ofstream& ofst);
 }
 using namespace simple_matrix;
 
-int main(int argc, char* argv[]) 
+int main(int argc, char* argv[])
 {
 	if (argc != 3) {
 		cout << "incorrect command line! "
@@ -30,6 +32,10 @@ int main(int argc, char* argv[])
 
 	In(c, ifst);
 	ofst << "Filled container. " << endl;
+
+	//sort(c.size, c.head);
+	sort(c);
+	ofst << "Sorted container. " << endl;
 
 	Out(c, ofst);
 	Clear(c);
