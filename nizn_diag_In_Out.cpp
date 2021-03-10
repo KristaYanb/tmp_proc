@@ -75,7 +75,7 @@ namespace simple_matrix
 
 		int summa = 0;
 		for (int i = 1; i <= count; i++)
-			summa = summa + n.mas_nizn_diag[i][j];
+			summa = summa + n.mas_nizn_diag[i];
 
 		return summa;
 	}

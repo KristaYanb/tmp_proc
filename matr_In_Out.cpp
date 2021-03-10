@@ -26,13 +26,13 @@ namespace simple_matrix
 		{
 		case 1:
 			sp = new matr;
-			sp->k = matr::key::DIAG;
-			In(sp->d, ifst);
+			sp->k = matr::key::SQUARE;
+			In(sp->s, ifst);
 			break;
 		case 2:
 			sp = new matr;
-			sp->k = matr::key::SQUARE;
-			In(sp->s, ifst);
+			sp->k = matr::key::DIAG;
+			In(sp->d, ifst);
 			break;
 		case 3:
 			sp = new matr;

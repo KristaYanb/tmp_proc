@@ -39,11 +39,12 @@ int main(int argc, char* argv[])
 	ofst << "Sorted container. " << endl;
 
 	OutSquare(c, ofst);
-
+	//Out(c, ofst);
 	Clear(c);
 	ofst << "Empty container. " << endl;
 
 	OutSquare(c, ofst);
+	//Out(c, ofst);
 	cout << "Stop" << endl;
 
 	return 0;

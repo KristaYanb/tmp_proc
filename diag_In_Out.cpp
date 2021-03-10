@@ -56,6 +56,7 @@ namespace simple_matrix
 					ofst << "0 ";
 			}
 		ofst << endl;
+	}
 
 	int Summa(diag& t)
 	{ 
