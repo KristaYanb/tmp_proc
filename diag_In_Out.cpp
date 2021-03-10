@@ -12,7 +12,7 @@ namespace simple_matrix
 			ifst >> t.mas_diag[i];
 	}
 
-	void Out1(diag& t, ofstream& ofst) // Вывод параметров диагональной матрицы в файл
+	void OutStroki(diag& t, ofstream& ofst) // Вывод параметров диагональной матрицы в файл
 	{
 		ofst << "It is Diag matrix: Size = " << t.size << endl;
 		
@@ -28,7 +28,7 @@ namespace simple_matrix
 			}
 	}
 
-	void Out2(diag& t, ofstream& ofst) // Вывод параметров квадратной матрицы в файл
+	void OutStolb(diag& t, ofstream& ofst) // Вывод параметров квадратной матрицы в файл
 	{
 		ofst << "It is Diag: Size = " << t.size << endl;
 		for (int j = 1; j <= t.size; j++)
@@ -43,7 +43,7 @@ namespace simple_matrix
 			}
 	}
 
-	void Out3(diag& t, ofstream& ofst) // Вывод параметров квадратной матрицы в файл
+	void OutOdnMas(diag& t, ofstream& ofst) // Вывод параметров квадратной матрицы в файл
 	{
 		ofst << "It is Diag matrix: Size = " << t.size << endl;
 
@@ -56,5 +56,12 @@ namespace simple_matrix
 					ofst << "0 ";
 			}
 		ofst << endl;
+
+	int Summa(diag& t)
+	{ 
+		int summa = 0;
+		for (int i = 1; i <= t.size; i++)
+			summa = summa + t.mas_diag[i];
+		return summa;
 	}
 } // end simple_matrix namespace

@@ -15,7 +15,7 @@ namespace simple_matrix
 				ifst >> r.mas_square[i][j];
 	}
 
-	void Out1(square& r, ofstream& ofst) // Вывод параметров квадратной матрицы в файл
+	void OutStroki(square& r, ofstream& ofst) // Вывод параметров квадратной матрицы в файл
 	{
 		ofst << "It is Square matrix: Size = " << r.size << endl;
 
@@ -28,7 +28,7 @@ namespace simple_matrix
 			}
 	}
 
-	void Out2(square& r, ofstream& ofst) // Вывод параметров квадратной матрицы в файл
+	void OutStolb(square& r, ofstream& ofst) // Вывод параметров квадратной матрицы в файл
 	{
 		ofst << "It is Square matrix: Size = " << r.size << endl;
 		
@@ -41,7 +41,7 @@ namespace simple_matrix
 			}
 	}
 
-	void Out3(square& r, ofstream& ofst) // Вывод параметров квадратной матрицы в файл
+	void OutOdnMas(square& r, ofstream& ofst) // Вывод параметров квадратной матрицы в файл
 	{
 		ofst << "It is Square matrix: Size = " << r.size << endl;
 		
@@ -51,5 +51,13 @@ namespace simple_matrix
 				ofst << r.mas_square[i][j] << " ";
 			}
 		ofst << endl;
+
+	int Summa(square& r)
+	{
+		int summa = 0;
+		for (int i = 1; i <= r.size; i++)
+			for (int j = 1; j <= r.size; j++)
+				summa = summa + r.mas_square[i][j];
+		return summa;
 	}
 } // end simple_matrix namespace

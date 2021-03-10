@@ -9,6 +9,10 @@ namespace simple_matrix
 	void In(diag& t, ifstream& ist);
 	void In(nizn_diag& n, ifstream& ist);
 
+	int Summa(square& r);
+	int Summa(diag& t);
+	int Summa(nizn_diag& n);
+
 	matr* In(ifstream& ifst) // Ввод параметров обобщенной матрицы из файла
 	{
 		matr* sp;
@@ -18,68 +22,68 @@ namespace simple_matrix
 		int k2;
 		ifst >> k2;
 
-		switch (k) 
+		switch (k)
 		{
 		case 1:
-			switch (k2)
-			{
-			case 0:
-				sp = new matr;
-				sp->k = matr::key::SQUARE;
-				sp->k2 = matr::key2::STROKI;
-				In(sp->s, ifst);
-				return sp;
-			case 1:
-				sp = new matr;
-				sp->k = matr::key::SQUARE;
-				sp->k2 = matr::key2::STOLB;
-				In(sp->s, ifst);
-				return sp;
-			case 2:
-				sp = new matr;
-				sp->k = matr::key::SQUARE;
-				sp->k2 = matr::key2::ODN_MASS;
-				In(sp->s, ifst);
-				return sp;
-			default:
-				return 0;
-			}
+			sp = new matr;
+			sp->k = matr::key::DIAG;
+			In(sp->d, ifst);
+			break;
 		case 2:
-			switch (k2)
-			{
-			case 0:
-				sp = new matr;
-				sp->k = matr::key::DIAG;
-				sp->k2 = matr::key2::STROKI;
-				In(sp->d, ifst);
-				return sp;
-			case 1:
-				sp = new matr;
-				sp->k = matr::key::DIAG;
-				sp->k2 = matr::key2::STOLB;
-				In(sp->d, ifst);
-				return sp;
-			case 2:
-				sp = new matr;
-				sp->k = matr::key::DIAG;
-				sp->k2 = matr::key2::ODN_MASS;
-				In(sp->d, ifst);
-				return sp;
-			default:
-				return 0;
+			sp = new matr;
+			sp->k = matr::key::SQUARE;
+			In(sp->s, ifst);
+			break;
+		case 3:
+			sp = new matr;
+			sp->k = matr::key::NIZN_DIAG;
+			In(sp->n, ifst);
+			break;
+		default:
+			return 0;
 			}
+
+		switch (k2)
+		{
+		case 0:
+			sp->k2 = matr::key2::STROKI;
+			return sp;
+		case 1:
+			sp->k2 = matr::key2::STOLB;
+			return sp;
+		case 2:
+			sp->k2 = matr::key2::ODN_MASS;
+			return sp;
 		default:
 			return 0;
 		}
 	}
 
+	int Summa(matr& s)
+	{
+		switch (s.k) 
+		{
+		case matr::key::SQUARE:
+			return Summa(s.s);
+		case matr::key::DIAG:
+			return Summa(s.d);
+		case matr::key::NIZN_DIAG:
+			return Summa(s.n);
+		default: 
+			return -1;
+		}
+	}
+
 	// Сигнатуры требуемых внешних функций
-	void Out1(square& r, ofstream& ofst);
-	void Out2(square& r, ofstream& ofst);
-	void Out3(square& r, ofstream& ofst);
-	void Out1(diag& t, ofstream& ofst);
-	void Out2(diag& t, ofstream& ofst);
-	void Out3(diag& t, ofstream& ofst);
+	void OutStroki(square& r, ofstream& ofst);
+	void OutStolb(square& r, ofstream& ofst);
+	void OutOdnMas(square& r, ofstream& ofst);
+	void OutStroki(diag& t, ofstream& ofst);
+	void OutStolb(diag& t, ofstream& ofst);
+	void OutOdnMas(diag& t, ofstream& ofst);
+	void OutStroki(nizn_diag& n, ofstream& ofst);
+	void OutStolb(nizn_diag& n, ofstream& ofst);
+	void OutOdnMas(nizn_diag& n, ofstream& ofst);
 
 	void Out(matr& s, ofstream& ofst) // Вывод параметров текущей матрицы в поток
 	{
@@ -89,15 +93,15 @@ namespace simple_matrix
 			{
 			case matr::key2::STROKI:
 				ofst << "STROKI " << s.k2 << endl;
-				Out1(s.s, ofst);
+				OutStroki(s.s, ofst);
 				break;
 			case matr::key2::STOLB:
 				ofst << "STOLB " << s.k2 << endl;
-				Out2(s.s,  ofst);
+				OutStolb(s.s,  ofst);
 				break;
 			case matr::key2::ODN_MASS:
 				ofst << "ODN_MASS " << s.k2 << endl;
-				Out3(s.s, ofst);
+				OutOdnMas(s.s, ofst);
 				break;
 			}
 			break;
@@ -107,20 +111,34 @@ namespace simple_matrix
 			{
 			case matr::key2::STROKI:
 				ofst << "STROKI " << s.k2 << endl;
-				Out1(s.d, ofst);
+				OutStroki(s.d, ofst);
 				break;
 			case matr::key2::STOLB:
 				ofst << "STOLB " << s.k2 << endl;
-				Out2(s.d, ofst);
+				OutStolb(s.d, ofst);
 				break;
 			case matr::key2::ODN_MASS:
 				ofst << "ODN_MASS " << s.k2 << endl;
-				Out3(s.d, ofst);
+				OutOdnMas(s.d, ofst);
 				break;
 			}
 			break;
 		case matr::key::NIZN_DIAG:
-			Out(s.n, ofst);
+			switch (s.k2)
+			{
+			case matr::key2::STROKI:
+				ofst << "STROKI " << s.k2 << endl;
+				OutStroki(s.n, ofst);
+				break;
+			case matr::key2::STOLB:
+				ofst << "STOLB " << s.k2 << endl;
+				OutStolb(s.n, ofst);
+				break;
+			case matr::key2::ODN_MASS:
+				ofst << "ODN_MASS " << s.k2 << endl;
+				OutOdnMas(s.n, ofst);
+				break;
+			}
 			break;
 		default:
 			ofst << "Incorrect matrix!" << endl;
