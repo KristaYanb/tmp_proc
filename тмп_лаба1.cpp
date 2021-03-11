@@ -34,17 +34,17 @@ int main(int argc, char* argv[])
 	In(c, ifst);
 	ofst << "Filled container. " << endl;
 
-	//sort(c.size, c.head);
+	Out(c, ofst);
 	sort(c);
 	ofst << "Sorted container. " << endl;
 
+	Out(c, ofst);
+
 	OutSquare(c, ofst);
-	//Out(c, ofst);
 	Clear(c);
 	ofst << "Empty container. " << endl;
 
 	OutSquare(c, ofst);
-	//Out(c, ofst);
 	cout << "Stop" << endl;
 
 	return 0;
