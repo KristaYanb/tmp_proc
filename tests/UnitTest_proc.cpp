@@ -21,22 +21,6 @@ namespace UnitTestproc
 	TEST_CLASS(UnitTestproc)
 	{
 	public:
-		
-		/*TEST_METHOD(TestMethod1)
-		{
-			int a = 1;
-			int b = 1;
-			int actual = a / b;
-			Assert::AreEqual(1, actual);
-		}
-
-		TEST_METHOD(TestMethod2)
-		{
-			int x = 0;
-			int y = 0;
-			int actual = sqrt(pow(x, 2) + pow(y, 2));
-			Assert::AreEqual(0, actual);
-		}*/
 
 		string Read(const char* filename)
 		{
@@ -73,6 +57,45 @@ namespace UnitTestproc
 			OutSquare(c, ofst);
 			string s1 = Read("output.txt");
 			string s2 = Read("outSquareMy.txt");
+			Assert::AreEqual(s1, s2);
+		}
+
+		TEST_METHOD(TestOutNiznDiag)
+		{
+			ifstream ifst("input_nizn_diag.txt");
+			ofstream ofst("output_nizn_diag.txt");
+			nizn_diag actual;
+			InNN(actual, ifst);
+			OutStroki(actual, ofst);
+
+			string s1 = Read("output_nizn_diag.txt");
+			string s2 = Read("out_nizn_diag_My.txt");
+			Assert::AreEqual(s1, s2);
+		}
+
+		TEST_METHOD(TestOutDiag)
+		{
+			ifstream ifst("input_diag.txt");
+			ofstream ofst("output_diag.txt");
+			diag actual;
+			InDD(actual, ifst);
+			OutStroki(actual, ofst);
+
+			string s1 = Read("output_diag.txt");
+			string s2 = Read("out_diag_My.txt");
+			Assert::AreEqual(s1, s2);
+		}
+
+		TEST_METHOD(TestOutSquare2)
+		{
+			ifstream ifst("input_square.txt");
+			ofstream ofst("output_square.txt");
+			square actual;
+			InSS(actual, ifst);
+			OutStroki(actual, ofst);
+
+			string s1 = Read("output_square.txt");
+			string s2 = Read("out_square_My.txt");
 			Assert::AreEqual(s1, s2);
 		}
 
@@ -300,5 +323,7 @@ namespace UnitTestproc
 			Assert::AreEqual(sd->mas_nizn_diag[1], actual.mas_nizn_diag[1]);
 			Assert::AreEqual(sd->mas_nizn_diag[2], actual.mas_nizn_diag[2]);
 		}
+
+		
 	};
 }
