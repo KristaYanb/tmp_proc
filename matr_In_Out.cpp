@@ -1,14 +1,14 @@
 #include <fstream>
+#include <iostream>
 #include "matr_atd.h"
 using namespace std;
 
 namespace simple_matrix
 {
 	// —игнатуры требуемых внешних функций
-	void In(square& r, ifstream& ist);
-	void In(diag& t, ifstream& ist);
-	void In(nizn_diag& n, ifstream& ist);
-
+	int In(square& r, ifstream& ist);
+	int In(diag& t, ifstream& ist);
+	int In(nizn_diag& n, ifstream& ist);
 	int Summa(square& r);
 	int Summa(diag& t);
 	int Summa(nizn_diag& n);
@@ -16,11 +16,40 @@ namespace simple_matrix
 	matr* In(ifstream& ifst) // ¬вод параметров обобщенной матрицы из файла
 	{
 		matr* sp;
+
 		int k;
 		ifst >> k;
 
+		if (ifst.fail())
+		{
+			cout << "Wrong input k!" << endl;
+			
+			return 0;
+		}
+
+		if ((k < 1) || (k > 3))
+		{
+			cout << "Error key k = " << k << endl;
+			
+			return 0;
+		}
+
 		int k2;
 		ifst >> k2;
+
+		if (ifst.fail())
+		{
+			cout << "Wrong input k2!" << endl;
+			
+			return 0;
+		}
+
+		if ((k2 < 0) || (k2 > 2))
+		{
+			cout << "Error key k2 = " << k2 << endl;
+
+			return 0;
+		}
 
 		switch (k)
 		{
@@ -29,31 +58,40 @@ namespace simple_matrix
 			sp->k = matr::key::SQUARE;
 			In(sp->s, ifst);
 			break;
+
 		case 2:
 			sp = new matr;
 			sp->k = matr::key::DIAG;
 			In(sp->d, ifst);
 			break;
+
 		case 3:
 			sp = new matr;
 			sp->k = matr::key::NIZN_DIAG;
 			In(sp->n, ifst);
 			break;
+
 		default:
 			return 0;
-			}
+		}
 
 		switch (k2)
 		{
 		case 0:
 			sp->k2 = matr::key2::STROKI;
+
 			return sp;
+
 		case 1:
 			sp->k2 = matr::key2::STOLB;
+
 			return sp;
+
 		case 2:
 			sp->k2 = matr::key2::ODN_MASS;
+
 			return sp;
+
 		default:
 			return 0;
 		}
@@ -65,10 +103,13 @@ namespace simple_matrix
 		{
 		case matr::key::SQUARE:
 			return Summa(s.s);
+
 		case matr::key::DIAG:
 			return Summa(s.d);
+
 		case matr::key::NIZN_DIAG:
 			return Summa(s.n);
+
 		default: 
 			return -1;
 		}
@@ -95,10 +136,12 @@ namespace simple_matrix
 				ofst << "STROKI " << s.k2 << endl;
 				OutStroki(s.s, ofst);
 				break;
+
 			case matr::key2::STOLB:
 				ofst << "STOLB " << s.k2 << endl;
 				OutStolb(s.s,  ofst);
 				break;
+
 			case matr::key2::ODN_MASS:
 				ofst << "ODN_MASS " << s.k2 << endl;
 				OutOdnMas(s.s, ofst);
@@ -113,16 +156,19 @@ namespace simple_matrix
 				ofst << "STROKI " << s.k2 << endl;
 				OutStroki(s.d, ofst);
 				break;
+
 			case matr::key2::STOLB:
 				ofst << "STOLB " << s.k2 << endl;
 				OutStolb(s.d, ofst);
 				break;
+
 			case matr::key2::ODN_MASS:
 				ofst << "ODN_MASS " << s.k2 << endl;
 				OutOdnMas(s.d, ofst);
 				break;
 			}
 			break;
+
 		case matr::key::NIZN_DIAG:
 			switch (s.k2)
 			{
@@ -130,16 +176,19 @@ namespace simple_matrix
 				ofst << "STROKI " << s.k2 << endl;
 				OutStroki(s.n, ofst);
 				break;
+
 			case matr::key2::STOLB:
 				ofst << "STOLB " << s.k2 << endl;
 				OutStolb(s.n, ofst);
 				break;
+
 			case matr::key2::ODN_MASS:
 				ofst << "ODN_MASS " << s.k2 << endl;
 				OutOdnMas(s.n, ofst);
 				break;
 			}
 			break;
+
 		default:
 			ofst << "Incorrect matrix!" << endl;
 		}

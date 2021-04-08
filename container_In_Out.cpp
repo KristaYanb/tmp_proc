@@ -1,29 +1,39 @@
 #include <fstream>
+#include <iostream>
 #include "container_atd.h"
 using namespace std;
 
 namespace simple_matrix
 {
-	matr* In(ifstream& ifdt); // Сигнатуры требуемых внешних функций
+	matr* In(ifstream& ifst); // Сигнатуры требуемых внешних функций
 
 	void In(container& c, ifstream& ifst) // Ввод содержимого контейнера из файла
 	{
 		while (!ifst.eof()) 
 		{
 			matr* curMatrix = In(ifst);
-			if (curMatrix != 0) { 
+
+			if (curMatrix != 0)
+			{
 				c.size++;
 				node* curNode = new node;
 				curNode->m = curMatrix;
-				if(c.head!=NULL){
+
+				if (c.head != NULL)
+				{
 					curNode->next = c.head;
 					c.head = curNode;
 				}
-				else {
+
+				else
+				{
 					curNode->next = NULL;
 					c.head = curNode;
 				}
 			}
+
+			else
+				break;
 		}
 	}
 
@@ -36,12 +46,12 @@ namespace simple_matrix
 		return Summa(*first) < Summa(*second);
 	}
 
-	void sort(container& c)
+	void Sort(container& c)
 	{
 		node* left = c.head;
 		node* right = c.head->next;
-
 		node* temp = new node;
+
 		for (int i = 0; i < c.size - 1; i++)
 		{
 			for (int j = i + 1; j < c.size; j++)
@@ -52,8 +62,10 @@ namespace simple_matrix
 					left->m = right->m;
 					right->m = temp->m;
 				}
+
 				right = right->next;
 			}
+
 			left = left->next;
 			right = left->next;
 		}
@@ -61,9 +73,7 @@ namespace simple_matrix
 
 	void OutSquare(container& c, ofstream& ofst) 
 	{ 
-		ofst << "Container contains " << c.size
-			<< " elements." << endl;
-
+		ofst << "\nContainer contains " << c.size << " elements." << endl;
 		ofst << "Only square." << endl; 
 
 		node* curNode = c.head;
@@ -78,7 +88,10 @@ namespace simple_matrix
 				Out(*curNode->m, ofst);
 				ofst << "Summa = " << Summa(*curNode->m) << endl;
 			}
-			else ofst << endl;
+
+			else
+				ofst << endl;
+
 			curNode = curNode->next;
 			i++;
 		}
@@ -86,8 +99,7 @@ namespace simple_matrix
 	
 	void Out(container& c, ofstream& ofst) // Вывод содержимого контейнера в файл
 	{
-		ofst << "Container contains " << c.size
-			<< " elements." << endl;
+		ofst << "Container contains " << c.size << " elements." << endl;
 
 		node* curNode = c.head;
 		int i = 0;
@@ -118,6 +130,7 @@ namespace simple_matrix
 			delete curNode;
 			curNode = temp;
 		}
+
 		c.head = NULL;
 		c.size = 0;
 	}
