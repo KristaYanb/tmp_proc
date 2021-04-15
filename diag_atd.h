@@ -8,8 +8,6 @@ namespace simple_matrix
 	{
 		int size; // размерность
 		int mas_diag[20]; //одномерный массив
-		enum key2 { STROKI, STOLB, ODN_MASS };
-		key2 k2;
 	};
 } // end simple_matrix namespace
 #endif
