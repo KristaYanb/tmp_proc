@@ -10,15 +10,17 @@ namespace simple_matrix
 	struct matr // структура, обобщающая все матрицы
 	{
 		int size;
-		//enum key { SQUARE, DIAG, NIZN_DIAG }; // значения ключей для каждой из матриц
-		enum key { SQUARE, DIAG };
+		enum key { SQUARE, DIAG, NIZN_DIAG }; // значения ключей для каждой из матриц
 		key k; // ключ
+		
+		enum key2 { STROKI, STOLB, ODN_MASS };
+		key2 k2;
 
 		union  // используемые альтернативы
 		{ // используем включение
 			square s;
 			diag d;
-			//nizn_diag n;
+			nizn_diag n;
 		};
 	};
 } // end simple_matrix namespace
